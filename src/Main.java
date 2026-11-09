@@ -128,10 +128,20 @@ public class Main {
 				System.out.println(carAttribute);
 			};
 			
-			System.out.println(myCar.removeAutomobile());
+			System.out.println(myCar.removeAutomobile() + "\n");
+			
+			System.out.println(myCar.addAutomobile("Honda", "Accord", "Blue", 2006, 120000) + "\n");
+			for (String carAttribute : myCar.getAutomobile()) {
+				System.out.println(carAttribute);
+			};
+			System.out.println(myCar.updateAutomobile("Honda", "Accord", "Blue", 2006, 122500) + "\n");
+			for (String carAttribute : myCar.getAutomobile()) {
+				System.out.println(carAttribute);
+			};
+			
 		}
         catch (Exception e) {
-        	System.out.println("ERROR Failed to update vehicle: " + e.getMessage());
+        	System.out.println("ERROR: " + e.getMessage());
         }
 	
 
