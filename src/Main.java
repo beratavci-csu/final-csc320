@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-
+import java.util.Scanner;
 
 class Automobile {
 	
@@ -39,9 +39,9 @@ class Automobile {
                 this.color = color;
                 this.year = year;
                 this.mileage = mileage;
-                return "Vehicle added successfully.";
+                return "Vehicle added successfully. \n";
             } else {
-                return "A vehicle already exists.";
+                return "A vehicle already exists. \n";
             }
         } 
         catch (Exception e) {
@@ -76,9 +76,9 @@ class Automobile {
                 color = "";
                 year = -1;
                 mileage = -1;
-                return "Vehicle removed.";
+                return "Vehicle removed. \n";
             } else {
-                return "No vehicle to remove!.";
+                return "No vehicle to remove! \n.";
             }
         } 
         catch (Exception e) {
@@ -94,7 +94,7 @@ class Automobile {
             this.color = color;
             this.year = year;
             this.mileage = mileage;
-            return "Vehicle updated successfully!";
+            return "Vehicle updated successfully! \n";
         } 
         catch (Exception e) {
             return "ERROR Failed to update vehicle: " + e.getMessage();
@@ -105,6 +105,7 @@ class Automobile {
 
 
 public class Main {
+	
 	
 	private static void copyCar(String[] carInfo) {
 		Path path = Path.of("Autos.txt");
@@ -118,26 +119,52 @@ public class Main {
 		}
 		
 	}
-	
+	//Create an additional class to call your automobile class (e.g., Main or AutomobileInventory). Include a try..catch construct and print it to the console.
 	public static void main(String[] args) {	
-
-		try {
+		String userChoice = "";
+		
+		try (Scanner scanner = new Scanner(System.in)) {
 			Automobile myCar = new Automobile("Toyota", "4Runner", "Green", 2002, 50000);
+			//Then call the method to list the values. Loop through the array and print to the screen.
+			for (String carAttribute : myCar.getAutomobile()) {
+				System.out.println(carAttribute);
+			};
+
 			
+			//Call the remove vehicle method to clear the variables. Print the return value.
+			System.out.println(myCar.removeAutomobile());
+			
+			//Add a new vehicle. Print the return value.
+			System.out.println(myCar.addAutomobile("Honda", "Accord", "Blue", 2006, 120000));
+			//Call the list method and print the new vehicle information to the screen.
+			for (String carAttribute : myCar.getAutomobile()) {
+				System.out.println(carAttribute);
+			};
+			//Update the vehicle. Print the return value.
+			System.out.println(myCar.updateAutomobile("Honda", "Accord", "Blue", 2006, 122500));
+			//Call the listing method and print the information to the screen.
 			for (String carAttribute : myCar.getAutomobile()) {
 				System.out.println(carAttribute);
 			};
 			
-			System.out.println(myCar.removeAutomobile() + "\n");
-			
-			System.out.println(myCar.addAutomobile("Honda", "Accord", "Blue", 2006, 120000) + "\n");
-			for (String carAttribute : myCar.getAutomobile()) {
-				System.out.println(carAttribute);
-			};
-			System.out.println(myCar.updateAutomobile("Honda", "Accord", "Blue", 2006, 122500) + "\n");
-			for (String carAttribute : myCar.getAutomobile()) {
-				System.out.println(carAttribute);
-			};
+			//Display a message asking if the user wants to print the information to a file (Y or N).
+			while (!userChoice.equalsIgnoreCase("N")) {
+				System.out.print("Do you want to print the information to a file? (Y or N): ");
+				userChoice = scanner.next();
+				 if (userChoice.equalsIgnoreCase("Y")) {
+			            System.out.println("Saving...");
+			            copyCar(myCar.getAutomobile());
+			        } 
+				 else if (userChoice.equalsIgnoreCase("N")) {
+			            System.out.println("Exiting...");
+			            break;
+			        } 
+			     else {
+			            System.out.println("Invalid input. Please enter Y or N.");
+			            continue;
+			        }
+			}
+
 			
 		}
         catch (Exception e) {
