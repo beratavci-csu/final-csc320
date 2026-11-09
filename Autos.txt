@@ -1,0 +1,5 @@
+Make: Honda
+Model: Accord
+Color: Blue
+Year: 2006
+Miles: 122500
