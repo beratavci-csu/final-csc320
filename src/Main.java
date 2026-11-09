@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 
 
 class Automobile {
@@ -101,11 +105,39 @@ class Automobile {
 
 
 public class Main {
+	
+	private static void copyCar(String[] carInfo) {
+		Path path = Path.of("Autos.txt");
+		
+		try {
+			Files.write(path, Arrays.asList(carInfo));
+			System.out.println("File Saved!");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void main(String[] args) {	
 
-
+		try {
+			Automobile myCar = new Automobile("Toyota", "4Runner", "Green", 2002, 50000);
+			
+			for (String carAttribute : myCar.getAutomobile()) {
+				System.out.println(carAttribute);
+			};
+			
+			System.out.println(myCar.removeAutomobile());
+		}
+        catch (Exception e) {
+        	System.out.println("ERROR Failed to update vehicle: " + e.getMessage());
+        }
 	
 
 	}
 	
 }
+
+
+////System.out.println();
